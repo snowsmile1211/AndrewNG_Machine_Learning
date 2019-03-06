@@ -19,8 +19,15 @@ grad = zeros(size(theta));
 %
 % Note: grad should have the same dimensions as theta
 %
-
-
+z=X*theta;
+h_x=sigmoid(z);
+J=(1/m)*sum(-y.*log(h_x)-(1-y).*log(1-h_x));
+% grad(1)=(1/m)*sum((h_x-y).*X(:,1));
+% grad(2)=(1/m)*sum((h_x-y).*X(:,2));
+% grad(3)=(1/m)*sum((h_x-y).*X(:,3));
+for i=1:size(theta)
+grad(i)=(1/m)*sum((h_x-y).*X(:,i));
+end
 
 
 
