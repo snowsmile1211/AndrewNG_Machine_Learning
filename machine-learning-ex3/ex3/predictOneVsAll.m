@@ -30,6 +30,11 @@ X = [ones(m, 1) X];
 %       for each row.
 %       
 
+z=X*all_theta';
+temp_pred=sigmoid(z);
+[M,I]=max(temp_pred,[],2);
+p=I;
+
 
 
 

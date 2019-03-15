@@ -28,6 +28,7 @@ display_array = - ones(pad + display_rows * (example_height + pad), ...
                        pad + display_cols * (example_width + pad));
 
 % Copy each example into a patch on the display array
+% X=sel; for function testing and understanding
 curr_ex = 1;
 for j = 1:display_rows
 	for i = 1:display_cols
