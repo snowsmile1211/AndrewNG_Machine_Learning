@@ -16,6 +16,8 @@ function [error_train, error_val] = ...
 
 % Number of training examples
 m = size(X, 1);
+% Number of validation examples(need to compute validation error)
+k =size(Xval,1);
 
 % You need to return these values correctly
 error_train = zeros(m, 1);
@@ -52,6 +54,29 @@ error_val   = zeros(m, 1);
 %
 
 % ---------------------- Sample Solution ----------------------
+
+for i = 1:m
+   
+    theta = trainLinearReg(X(1:i,:), y(1:i), lambda);
+   
+    %trainning error(pay attention to the size of X sample size, here, not m, but i, changing)
+    % caculate y_bar using parameters
+    y_bar = X(1:i,:)*theta;
+    %error between y_bar and y
+    error_square = sum((y_bar-y(1:i)).^2);
+    %training error
+    error_train(i) = (1/(2*i))*error_square;
+
+    %cross-validition error (pay attention to the size of Xval size, here, not m, but k)
+    % caculate y_bar using parameters
+    y_bar_val = Xval*theta;
+    %error between y_bar and y
+    error_square_val = sum((y_bar_val-yval).^2);
+    %cross_validation error
+    error_val(i) = (1/(2*k))*error_square_val;
+end
+
+
 
 
 

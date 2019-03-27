@@ -12,6 +12,11 @@ function [lambda_vec, error_train, error_val] = ...
 % Selected values of lambda (you should not change this)
 lambda_vec = [0 0.001 0.003 0.01 0.03 0.1 0.3 1 3 10]';
 
+% Number of training examples
+m = size(X, 1);
+% Number of validation examples(need to compute validation error)
+k =size(Xval,1);
+
 % You need to return these variables correctly.
 error_train = zeros(length(lambda_vec), 1);
 error_val = zeros(length(lambda_vec), 1);
@@ -39,8 +44,28 @@ error_val = zeros(length(lambda_vec), 1);
 %
 %
 
+ for i = 1:length(lambda_vec)
+     lambda = lambda_vec(i);
+     
+    theta = trainLinearReg(X, y, lambda);
+   
+    %trainning error(pay attention to the size of X sample size, here, not m, but i, changing)
+    % caculate y_bar using parameters
+    y_bar = X*theta;
+    %error between y_bar and y
+    error_square = sum((y_bar-y).^2);
+    %training error
+    error_train(i) = (1/(2*m))*error_square;
 
+    %cross-validition error (pay attention to the size of Xval size, here, not m, but k)
+    % caculate y_bar using parameters
+    y_bar_val = Xval*theta;
+    %error between y_bar and y
+    error_square_val = sum((y_bar_val-yval).^2);
+    %cross_validation error
+    error_val(i) = (1/(2*k))*error_square_val;
 
+ end
 
 
 
