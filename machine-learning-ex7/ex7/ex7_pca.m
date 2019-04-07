@@ -133,7 +133,8 @@ fprintf(['\nRunning PCA on face dataset.\n' ...
 [U, S] = pca(X_norm);
 
 %  Visualize the top 36 eigenvectors found
-displayData(U(:, 1:36)');
+kk=50;
+displayData(U(:, 1:kk)');
 
 fprintf('Program paused. Press enter to continue.\n');
 pause;
@@ -146,6 +147,8 @@ fprintf('\nDimension reduction for face dataset.\n\n');
 
 K = 100;
 Z = projectData(X_norm, U, K);
+%display reduced data
+% displayData(Z(1:100,:));
 
 fprintf('The projected data Z has a size of: ')
 fprintf('%d ', size(Z));
